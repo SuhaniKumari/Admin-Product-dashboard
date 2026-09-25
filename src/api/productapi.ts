@@ -40,7 +40,16 @@ export const updateProduct = async (
 
   return response.data;
 };
+export const addProduct = async (
+  product: Omit<Product, "id" | "rating" | "images">
+): Promise<Product> => {
+  const response = await axios.post<Product>(
+    "https://dummyjson.com/products/add",
+    product
+  );
 
+  return response.data;
+};
 // DELETE PRODUCT
 export const deleteProduct = async (
   id: number

@@ -20,6 +20,7 @@ import {
   PersonOutlineOutlined,
 } from '@mui/icons-material';
 
+
 import AppButton from '@/src/components/AppButton';
 import { useRouter } from 'next/navigation';
 export default function LoginPage() {
@@ -43,6 +44,8 @@ const router = useRouter();
     });
 
     localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('isLoggedIn', 'true');
+
  router.push('/dashboard');
     console.log('Login successful:', data);
 

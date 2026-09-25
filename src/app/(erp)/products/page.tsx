@@ -33,12 +33,14 @@ import {
   deleteProduct,
 updateProduct
 } from '@/src/api/productapi';
-
+import AddProductDialog from '@/src/features/products/Addproduct';
+import { toast } from '@/components/ui/toast';
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState('');
-
+ const [showAddDialog, setShowAddDialog] = useState(false)
+ const [showAddProduct, setShowAddProduct] = useState(false);
 const categories = useMemo(() => {
   return Array.from(
     new Set(
@@ -90,6 +92,10 @@ const handleDelete = async (product: Product) => {
     setProducts((prev) =>
       prev.filter((item) => item.id !== product.id)
     );
+    toast.add({
+  title: "Product Deleted!",
+  
+})
   } catch (error) {
     console.error('Failed to delete product:', error);
   }
@@ -215,7 +221,9 @@ const handleDelete = async (product: Product) => {
       ),
     },
   ];
-
+const handleProductAdded = (newProduct: Product) => {
+    setProducts((prev) => [newProduct, ...prev])
+  }
   return (
   <Box sx={{ p: { xs: 2, sm: 3 } }}>
 
@@ -234,7 +242,7 @@ const handleDelete = async (product: Product) => {
   filterValue={category}
   onFilterChange={setCategory}
         onAdd={() => {
-          console.log('Add product');
+          setShowAddDialog(true)
         }}
         addButtonText="Add Product"
         onEdit={handleEdit}
@@ -273,7 +281,7 @@ const handleDelete = async (product: Product) => {
 
         <Button
           variant="contained"
-          onClick={() => console.log('Add product')}
+            onClick={() => setShowAddDialog(true)}
         >
           Add Product
         </Button>
@@ -478,6 +486,11 @@ const handleDelete = async (product: Product) => {
       )}
 
     </Box>
+   <AddProductDialog
+  open={showAddDialog}
+  onOpenChange={setShowAddDialog}
+  onProductAdded={handleProductAdded}
+/>
   </Box>
   );
 }
