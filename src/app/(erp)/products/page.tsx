@@ -120,8 +120,7 @@ const handleDelete = async (product: Product) => {
 
   render: (row) => (
     <Avatar
-      variant="rounded"
-      className="h-12 w-12"
+      className="h-12 w-12  rounded-md"
     >
       <AvatarImage
         src={row.thumbnail}
@@ -321,8 +320,8 @@ const handleProductAdded = (newProduct: Product) => {
 
       {/* Product Image */}
       <Avatar
-        variant="rounded"
-        className="h-14 w-14 shrink-0"
+        
+        className="h-14 w-14 shrink-0  rounded-md"
       >
         <AvatarImage
           src={product.thumbnail}
